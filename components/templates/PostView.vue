@@ -5,6 +5,11 @@
       src="@/assets/images/Article_cover_1.png"
       alt="Article_cover_1"
     />
+    <img
+      class="post__bg-image--medium"
+      src="@/assets/images/Article_cover_2.png"
+      alt="Article_cover_1"
+    />
     <section class="post__content">
       <h1 class="post__title">
         {{ getCurrentPost.title }}
@@ -89,15 +94,35 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/breakpoint.scss';
+
 .post {
   &__bg-image {
     display: block;
     width: 100%;
+    @include medium {
+      display: none;
+    }
+    &--medium {
+      display: none;
+      @include medium {
+        display: block;
+        width: 100%;
+        max-width: $max-width-container;
+        margin: 0 auto;
+      }
+    }
   }
   &__content {
     position: relative;
     top: -42px;
     padding: 0 16px;
+    @include medium {
+      top: 0;
+      padding: 0;
+      max-width: $max-width-container;
+      margin: 0 auto;
+    }
   }
   &__title {
     font-family: 'Manrope';
@@ -107,6 +132,10 @@ export default Vue.extend({
     padding-top: 16px;
     padding-bottom: 32px;
     border-bottom: 1px solid #d1d1d6;
+    @include medium {
+      padding-top: 25px;
+      padding-bottom: 30px;
+    }
   }
   &__body {
     font-family: 'Manrope';
@@ -118,6 +147,11 @@ export default Vue.extend({
     padding-bottom: 16px;
     gap: 20px;
     display: grid;
+    @include medium {
+      padding-top: 30px;
+      padding-bottom: 15px;
+      gap: 30px;
+    }
   }
   &__edit {
     display: flex;
@@ -138,6 +172,11 @@ export default Vue.extend({
   &__actions {
     display: grid;
     gap: 20px;
+    @include medium {
+      grid-auto-flow: column;
+      grid-template-columns: 309px 325px;
+      gap: 30px;
+    }
   }
 }
 
@@ -148,6 +187,18 @@ export default Vue.extend({
     font-size: 20px;
     line-height: 50px;
     padding: 16px 0;
+    @include medium {
+      line-height: 33px;
+      padding: 15px 0;
+    }
+  }
+  ul {
+    @include medium {
+      padding-top: 15px;
+      li {
+        margin-bottom: 20px;
+      }
+    }
   }
 }
 

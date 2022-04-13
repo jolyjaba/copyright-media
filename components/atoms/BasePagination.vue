@@ -124,10 +124,18 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/breakpoint.scss';
+
 .pagination {
   padding: 16px 0;
   display: flex;
   justify-content: center;
+  @include medium {
+    max-width: $max-width-container;
+    margin: 0 auto;
+    padding: 40px 0 136px;
+    justify-content: flex-end;
+  }
   &__items {
     display: flex;
     gap: 8px;

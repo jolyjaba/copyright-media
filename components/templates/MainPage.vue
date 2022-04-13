@@ -28,12 +28,26 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/breakpoint.scss';
 .list {
   padding: 0 16px;
+  @include medium {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: $max-width-container;
+    margin: 0 auto;
+    gap: 40px 23px;
+    padding: 0;
+  }
   &__item-wrapper {
     padding: 16px 0;
     &:not(:last-of-type) {
       border-bottom: 1px solid #d1d1d6;
+    }
+    @include medium {
+      padding: 0;
+      border: 1px solid #e2e2e2;
+      border-radius: 20px;
     }
   }
 }

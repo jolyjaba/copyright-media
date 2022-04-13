@@ -33,14 +33,20 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/breakpoint.scss';
+
 .search {
   display: flex;
   align-items: center;
   gap: 8px;
   background: rgba(60, 60, 67, 0.1);
-  padding: 7px 8px;
+  padding: 7px 16px 7px 8px;
   border-radius: 10px;
   margin: 10px 0;
+  @include medium {
+    padding: 14px 16px 14px 8px;
+    min-width: 285px;
+  }
   &__icon {
     width: 20px;
     height: 22px;

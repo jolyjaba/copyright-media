@@ -23,12 +23,17 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/breakpoint.scss';
 .comment {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: repeat(2, auto);
   gap: 1px 12px;
   padding: 8px 0;
+  @include medium {
+    gap: 10px 12px;
+    padding: 8px 16px;
+  }
   &__avatar {
     grid-row-start: 1;
     grid-row-end: 3;
@@ -47,6 +52,7 @@ export default Vue.extend({
     font-weight: 600;
     font-size: 18px;
     line-height: 24px;
+    letter-spacing: 0.5px;
   }
   &__post {
     font-family: 'Manrope';
@@ -54,6 +60,9 @@ export default Vue.extend({
     font-size: 17px;
     line-height: 22px;
     color: rgba(60, 60, 67, 0.6);
+    @include medium {
+      font-size: 17px;
+    }
   }
 }
 </style>

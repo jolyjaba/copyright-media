@@ -15,13 +15,13 @@
       "@/*": ["./*"]
     },
     "jsx": "preserve",
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node"],
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node"]
   },
-  "vueCompilerOptions": {
-    "experimentalCompatMode": 2,
-    "experimentalTemplateCompilerOptions": {
-      "compatConfig": { "MODE": 2 } // optional
-    }
-  },
+  // "vueCompilerOptions": {
+  //   "experimentalCompatMode": 2,
+  //   "experimentalTemplateCompilerOptions": {
+  //     "compatConfig": { "MODE": 2 } // optional
+  //   }
+  // },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

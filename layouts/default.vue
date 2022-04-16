@@ -1,6 +1,5 @@
 <template>
   <div>
-    <BaseHeader />
     <Nuxt />
     <BaseFooter />
   </div>
@@ -8,11 +7,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import BaseHeader from '@/components/organisms/BaseHeader.vue'
-import BaseFooter from '@/components/atoms/BaseFooter.vue'
+import BaseFooter from '@/components/BaseFooter.vue'
 
 export default Vue.extend({
   name: 'DefaultLayout',
-  components: { BaseHeader, BaseFooter },
+  components: { BaseFooter },
 })
 </script>

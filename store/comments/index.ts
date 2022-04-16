@@ -1,6 +1,6 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import IComment from '@/types/IComment'
 import { RootState } from '@/store'
+import IComment from '@/types/IComment'
 
 export const state = () => ({
   comments: [] as IComment[],
@@ -17,7 +17,7 @@ export const mutations: MutationTree<AnotherModuleState> = {
 }
 
 export const actions: ActionTree<AnotherModuleState, RootState> = {
-  async fetchComments({ commit }, id) {
+  async fetchComments({ commit }, id: number): Promise<void> {
     const data = await this.$axios.$get<IComment[]>(`/posts/${id}/comments`)
     commit('SET_COMMENTS', data)
   },

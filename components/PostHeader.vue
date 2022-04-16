@@ -24,10 +24,7 @@ export default Vue.extend({})
     height: 24px;
   }
   &__title {
-    font-family: 'Manrope';
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 24px;
+    @include useFont($weight: 600, $size: 18px, $line-height: 24px);
     text-align: center;
   }
 }

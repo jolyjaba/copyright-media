@@ -5,19 +5,17 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
-
-type buttonTypes = 'button' | 'submit' | 'reset' | undefined
+import Vue from 'vue'
 
 export default Vue.extend({
   props: {
     type: {
-      type: String as PropType<buttonTypes>,
-      default: () => 'button',
+      type: String,
+      default: 'button',
     },
     buttonStyle: {
       type: String,
-      default: () => 'primary',
+      default: 'primary',
     },
   },
 })
@@ -28,19 +26,16 @@ export default Vue.extend({
   border: none;
   padding: 14px 0;
   border-radius: 5px;
-  font-family: 'Manrope';
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 22px;
+  @include useFont($weight: 300, $size: 18px, $line-height: 22px);
   width: 100%;
   &.primary {
-    background: #ff008a;
+    background: $red-color;
     color: #ffffff;
   }
   &.ghost {
     background: #ffffff;
     border: 1px solid #ff008a;
-    color: #ff008a;
+    color: $red-color;
   }
 }
 </style>

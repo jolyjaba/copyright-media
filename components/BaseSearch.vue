@@ -1,40 +1,33 @@
 <template>
   <div class="search">
-    <svg class="search__icon">
-      <use xlink:href="@/assets/icons/main.svg#search-icon" />
-    </svg>
+    <VSvg class="search__icon" icon-id="search-icon"/>
     <input
       :value="value"
       class="search__input"
       placeholder="Поиск"
       type="search"
-      @input="onInput"
+      @input="$emit('input', $event.target.value)"
     />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import VSvg from '@/components/VSvg.vue'
 
 export default Vue.extend({
+  components: { VSvg },
   props: {
     value: {
       type: String,
       required: true,
-      default: () => '',
-    },
-  },
-  methods: {
-    onInput(event: any) {
-      this.$emit('input', event.target.value)
+      default: '',
     },
   },
 })
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/breakpoint.scss';
-
 .search {
   display: flex;
   align-items: center;
@@ -56,15 +49,16 @@ export default Vue.extend({
     width: 100%;
     padding: 0;
     background: transparent;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 22px;
+    @include useFont(
+      $family: sans-serif,
+      $weight: 400,
+      $size: 17px,
+      $line-height: 22px
+    );
     outline: none;
     &,
     &::placeholder {
-      color: rgba(60, 60, 67, 0.6);
+      color: $text-body-color;
     }
   }
 }

@@ -32,7 +32,17 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    // https://github.com/nuxt-community/style-resources-module
+    '@nuxtjs/style-resources',
   ],
+
+  styleResources: {
+    scss: [
+      '@/assets/styles/breakpoint.scss',
+      '@/assets/styles/variables.scss',
+      '@/assets/styles/mixins.scss',
+    ],
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [

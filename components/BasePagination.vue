@@ -2,48 +2,61 @@
   <section v-if="totalCount" class="pagination">
     <ul class="pagination__items">
       <template v-if="currentPage > 1">
-        <NuxtLink :to="`/${currentPage - 1}`">
-          <li class="pagination__item">
-            <svg>
-              <use xlink:href="@/assets/icons/main.svg#prev-icon" />
-            </svg>
-          </li>
-        </NuxtLink>
+        <VLink :to="`/${currentPage - 1}`">
+          <template #default="{ isExactActive }">
+            <li
+              :class="[
+                'pagination__item',
+                { 'pagination__item--is-active': isExactActive },
+              ]"
+            >
+              <VSvg icon-id="prev-icon" />
+            </li>
+          </template>
+        </VLink>
       </template>
       <template v-else>
         <a>
           <li class="pagination__item">
-            <svg>
-              <use xlink:href="@/assets/icons/main.svg#prev-icon" />
-            </svg>
+            <VSvg icon-id="prev-icon" />
           </li>
         </a>
       </template>
-      <NuxtLink
+      <VLink
         v-for="item in pagination"
         :key="item.page"
         :to="`/${item.page}`"
         @click.native="setCurrentPage(item.page)"
       >
-        <li class="pagination__item">
-          {{ item.title }}
-        </li>
-      </NuxtLink>
-      <template v-if="currentPage < totalPage">
-        <NuxtLink :to="`/${currentPage + 1}`">
-          <li class="pagination__item">
-            <svg>
-              <use xlink:href="@/assets/icons/main.svg#next-icon" />
-            </svg>
+        <template #default="{ isExactActive }">
+          <li
+            :class="[
+              'pagination__item',
+              { 'pagination__item--is-active': isExactActive },
+            ]"
+          >
+            {{ item.title }}
           </li>
-        </NuxtLink>
+        </template>
+      </VLink>
+      <template v-if="currentPage < totalPage">
+        <VLink :to="`/${currentPage + 1}`">
+          <template #default="{ isExactActive }">
+            <li
+              :class="[
+                'pagination__item',
+                { 'pagination__item--is-active': isExactActive },
+              ]"
+            >
+              <VSvg icon-id="next-icon" />
+            </li>
+          </template>
+        </VLink>
       </template>
       <template v-else>
         <a>
           <li class="pagination__item">
-            <svg>
-              <use xlink:href="@/assets/icons/main.svg#next-icon" />
-            </svg>
+            <VSvg icon-id="next-icon" />
           </li>
         </a>
       </template>
@@ -53,11 +66,15 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import VSvg from '@/components/VSvg.vue'
+import VLink from '@/components/VLink.vue'
+import IPaginationItem from '@/types/IPaginationItem'
 
 export default Vue.extend({
+  components: { VLink, VSvg },
   data() {
     return {
-      currentPage: +this.$route.params.page,
+      currentPage: Number(this.$route.params.page),
       firstVisiblePages: 2,
       lastVisiblePages: 2,
     }
@@ -66,24 +83,18 @@ export default Vue.extend({
     totalCount(): number {
       return this.$store.getters['posts/getTotalCount']
     },
-    totalPage() {
-      const totalCount = this.totalCount as number
-      return Math.ceil(totalCount / 9)
+    totalPage(): number {
+      return Math.ceil(this.totalCount / 9)
     },
-    pagination() {
-      const newPages = []
+    pagination(): IPaginationItem[] {
+      const newPages: IPaginationItem[] = []
 
       const numOfLink = this.firstVisiblePages + 1 + this.lastVisiblePages
 
       if (this.totalPage - this.currentPage >= numOfLink) {
-        let lastPagesNumStart = (this.totalPage -
-          this.lastVisiblePages +
-          1) as number
-        let firstPagesNumEnd = (this.currentPage +
-          this.firstVisiblePages -
-          1) as number
-        const threeDotsPage = (this.currentPage +
-          this.firstVisiblePages) as number
+        let lastPagesNumStart = this.totalPage - this.lastVisiblePages + 1
+        let firstPagesNumEnd = this.currentPage + this.firstVisiblePages - 1
+        const threeDotsPage = this.currentPage + this.firstVisiblePages
         while (lastPagesNumStart <= this.totalPage) {
           newPages.push({
             title: lastPagesNumStart,
@@ -102,7 +113,7 @@ export default Vue.extend({
           firstPagesNumEnd--
         }
       } else {
-        let totalPage = this.totalPage as number
+        let totalPage = this.totalPage
         while (totalPage > this.totalPage - numOfLink) {
           newPages.unshift({
             title: totalPage,
@@ -124,15 +135,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/breakpoint.scss';
-
 .pagination {
   padding: 16px 0;
   display: flex;
   justify-content: center;
   @include medium {
-    max-width: $max-width-container;
-    margin: 0 auto;
     padding: 40px 0 136px;
     justify-content: flex-end;
   }
@@ -140,32 +147,25 @@ export default Vue.extend({
     display: flex;
     gap: 8px;
   }
-  a {
-    color: unset;
-    text-decoration: none;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    &.nuxt-link-exact-active {
-      border: 1px solid #ff008a;
-      color: #ff008a;
-    }
-  }
   &__item {
+    border: 1px solid $border-color;
+    border-radius: 4px;
     padding: 5px 4px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 20px;
+    @include useFont(
+      $family: sans-serif,
+      $weight: 700,
+      $size: 14px,
+      $line-height: 20px
+    );
     width: 24px;
     height: 22px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    svg {
-      width: 24px;
-      height: 24px;
+    &--is-active {
+      border: 1px solid $red-color;
+      color: $red-color;
     }
   }
 }

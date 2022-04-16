@@ -1,7 +1,1 @@
-@mixin medium {
-  @media (min-width: 768px) {
-    @content;
-  }
-}
-
-$max-width-container: 973px;
+$medium-breakpoint: 768px;

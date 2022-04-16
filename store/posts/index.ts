@@ -26,7 +26,14 @@ export const mutations: MutationTree<AnotherModuleState> = {
 }
 
 export const actions: ActionTree<AnotherModuleState, RootState> = {
-  async fetchPosts({ commit }, { page, limit = 9, searchText = '' }) {
+  async fetchPosts(
+    { commit },
+    {
+      page,
+      limit = 9,
+      searchText = '',
+    }: { page: number; limit: number; searchText: string }
+  ): Promise<void> {
     let data: IPost[] = []
     if (!searchText) {
       data = await this.$axios.$get<IPost[]>(
@@ -40,11 +47,14 @@ export const actions: ActionTree<AnotherModuleState, RootState> = {
     }
     commit('SET_POSTS', data)
   },
-  async fetchPost({ commit }, id: number | string) {
+  async fetchPost({ commit }, id: number | string): Promise<void> {
     const data = await this.$axios.$get<IPost>(`/posts/${id}`)
     commit('SET_CURRENT_POST', data)
   },
-  async updatePost({ commit }, { id, payload }) {
+  async updatePost(
+    { commit },
+    { id, payload }: { id: number; payload: string }
+  ): Promise<void> {
     const data = await this.$axios.$patch<IPost>(`/posts/${id}`, {
       body: payload,
     })

@@ -11,10 +11,12 @@ export default Vue.extend({
   props: {
     type: {
       type: String,
+      required: false,
       default: 'button',
     },
     buttonStyle: {
       type: String,
+      required: false,
       default: 'primary',
     },
   },

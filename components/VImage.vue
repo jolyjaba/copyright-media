@@ -19,5 +19,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 .image {
   width: 100%;
+  display: block;
 }
 </style>

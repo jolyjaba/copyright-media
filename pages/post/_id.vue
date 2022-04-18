@@ -42,7 +42,7 @@
             <p class="post__comments-title">Комментарии</p>
             <VList :list="getComments">
               <template #default="{ item }">
-                <BaseComment :item="item" />
+                <VComment :item="item" />
               </template>
             </VList>
           </div>
@@ -54,21 +54,21 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import BaseButton from '@/components/BaseButton.vue'
-import BaseComment from '@/components/BaseComment.vue'
 import IPost from '@/types/IPost'
 import IComment from '@/types/IComment'
-import PostHeader from '@/components/PostHeader.vue'
-import VImage from '@/components/VImage.vue'
 import VSvg from '@/components/VSvg.vue'
 import VList from '@/components/VList.vue'
+import VImage from '@/components/VImage.vue'
+import PostHeader from '@/components/PostHeader.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import BaseHeader from '@/components/BaseHeader.vue'
 import VContainer from '@/components/VContainer.vue'
+import VComment from '@/components/VComment.vue'
 
 export default Vue.extend({
   components: {
     BaseButton,
-    BaseComment,
+    VComment,
     PostHeader,
     VImage,
     VSvg,
